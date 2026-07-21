@@ -1,50 +1,46 @@
-import { useState } from "react";
-import { Dimensions, View } from "react-native";
-import Animated, { Easing, Keyframe } from "react-native-reanimated";
+import React, { useEffect, useRef } from "react";
+import { Animated, StyleSheet, View } from "react-native";
 
-// При натисканні запускається анімація завантаження( зробіть прогресс бар)
-// Після того як він заповниться включається аудиосигнал "Успіх"
-const INITIAL_SCALE_FACTOR = Dimensions.get("screen").height / 90;
-const DURATION = 600;
-export function LoaingVideo() {
-  const [animate, setAnimate] = useState(false);
-  const [visible, setVisible] = useState(true);
-  if (!visible) return null;
+//  Interface для объектов, а Type для различных типо
+type AnimationFilmProps = {
+  onComplete: () => void;
+};
 
-  const keyframe = new Keyframe({
-    0: {
-      transform: [{ scale: INITIAL_SCALE_FACTOR }],
-    },
-    100: {
-      transform: [{ scale: 1 }],
-      easing: Easing.elastic(0.7),
-    },
+export const ProgressBar = ({ onComplete }: AnimationFilmProps) => {
+  const progress = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.timing(progress, {
+      toValue: 100,
+      duration: 5000, // 5 секунд
+      useNativeDriver: false,
+    }).start(() => {
+      onComplete();
+    });
+  }, []);
+
+  const width = progress.interpolate({
+    inputRange: [0, 100],
+    outputRange: ["0%", "100%"],
   });
-  const openingAnimation = animate ? keyframe : undefined;
 
   return (
-    <View
-      style={{
-        position: "absolute",
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundColor: "rgba(0, 0, 0, 0.5)",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Animated.View
-        style={{
-          width: 100,
-          height: 100,
-          backgroundColor: "white",
-          borderRadius: 50,
-          transform: [{ scale: INITIAL_SCALE_FACTOR }],
-        }}
-        entering={openingAnimation}
-      />
+    <View style={styles.container}>
+      <Animated.View style={[styles.progressBar, { width }]} />
     </View>
   );
-}
+};
+
+const styles = StyleSheet.create({
+  container: {
+    width: "80%",
+    height: 20,
+    backgroundColor: "#e0e0e0",
+    borderRadius: 10,
+    overflow: "hidden",
+  },
+  progressBar: {
+    height: "100%",
+    backgroundColor: "#76c7c0",
+  },
+});

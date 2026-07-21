@@ -1,35 +1,34 @@
-import { Container } from "@/components/ui/container";
-import { VideoView } from "expo-video";
+import { useVideoPlayer, VideoView } from "expo-video";
 import { StyleSheet, View } from "react-native";
 
-const FilmComponent = ({ player }: { player: any }) => {
+type FilmComponentProps = {
+  videoUri: string;
+};
+
+export const FilmComponent = ({ videoUri }: FilmComponentProps) => {
+  const video = useVideoPlayer(videoUri, (player) => {
+    player.loop = false;
+    player.play();
+  });
   return (
-    <View>
-      <Container style={{ height: 500, paddingVertical: 15, gap: 2 }}>
-        <VideoView
-          style={styles.video}
-          player={player}
-          allowsPictureInPicture
-        />
-      </Container>
+    <View style={styles.container}>
+      <VideoView
+        player={video}
+        style={styles.video}
+        allowsPictureInPicture
+        nativeControls={true}
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    width: "100%",
+    alignItems: "center",
+  },
   video: {
     width: "100%",
-    height: "100%",
-  },
-  nextButton: {
-    position: "absolute",
-    bottom: 20,
-    right: 20,
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
+    height: 300,
   },
 });
-
-export default FilmComponent;
