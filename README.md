@@ -6,7 +6,11 @@
 І з'являється відео, яке автоматично починає відігравати.
 
 
-https://github.com/user-attachments/assets/345bccc2-c633-41d8-b574-75d8400b03d0
+
+
+https://github.com/user-attachments/assets/ea2ba559-bd04-41a8-af5c-613200f0bf65
+
+
 
 
 ## Get started
