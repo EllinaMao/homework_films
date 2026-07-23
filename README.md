@@ -5,6 +5,10 @@
 Після того як він заповниться включається аудиосигнал "Успіх"
 І з'являється відео, яке автоматично починає відігравати.
 
+
+https://github.com/user-attachments/assets/345bccc2-c633-41d8-b574-75d8400b03d0
+
+
 ## Get started
 
 1. Install dependencies
