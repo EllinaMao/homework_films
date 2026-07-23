@@ -33,11 +33,12 @@ export const ProgressBar = ({ onComplete }: AnimationFilmProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: "80%",
+    width: "100%",
     height: 20,
     backgroundColor: "#e0e0e0",
     borderRadius: 10,
     overflow: "hidden",
+    alignContent: "center",
   },
   progressBar: {
     height: "100%",
